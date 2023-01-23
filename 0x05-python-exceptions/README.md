@@ -1,1 +1,1 @@
-0x05. Python - Exceptions Assignment
+0x05. Python - Exceptions Task
