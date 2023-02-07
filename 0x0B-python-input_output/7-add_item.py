@@ -1,19 +1,17 @@
-#!/usr/bin/python3
-"""Add item script."""
-import sys
+#!/usr/reated on Tru Jun 3 15:13:37 2020
+@author: Robinson Montes
+"""
+import json
 
-save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
-load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
 
-try:
-    lst = load_from_json_file("add_item.json")
-except:
-    lst = []
-
-argc = len(sys.argv)
-
-if argc > 1:
-    for i in range(1, argc):
-        lst.append(sys.argv[i])
-
-save_to_json_file(lst, "add_item.json")
+def save_to_json_file(my_obj, filename):
+    """
+    Save object to a file
+    Arguments:
+        my_obj (obj): The inputed object to convert in json format
+        filename (str): The name of the output file
+    Return:
+        A file with a text in jason format
+    """
+    with open(filename, 'w', encoding='utf-8') as file:
+        return file.write(json.dumps(my_obj))
