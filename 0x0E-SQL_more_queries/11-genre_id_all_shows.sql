@@ -1,4 +1,4 @@
---lists all shows from hbtn_0d_tvshows.
+-- lists all shows from hbtn_0d_tvshows.
 
    SELECT s.title, g.genre_id
      FROM tv_shows s

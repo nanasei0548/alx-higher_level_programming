@@ -1,4 +1,4 @@
---uses the hbtn_0d_tvshows database to llists all Comedy shows.
+-- uses the hbtn_0d_tvshows database to llists all Comedy shows.
 
   SELECT s.title
     FROM (tv_genres g JOIN tv_show_genres sg ON g.id = sg.genre_id)
