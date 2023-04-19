@@ -1,36 +1,31 @@
 #!/usr/bin/python3
 """
-Script that creates the `State` “California” with the
-`City` “San Francisco” from the database `hbtn_0e_100_usa`.
-Arguments:
-    mysql username (str)
-    mysql password (str)
-    database name (str)
+Created on Sat Aug  8 09:05:11 2020
+@author: Robinson Montes
 """
-
-import sys
-from sqlalchemy import (create_engine)
-from sqlalchemy.orm import Session
-from sqlalchemy.engine.url import URL
 from relationship_state import Base, State
 from relationship_city import City
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+import sys
 
 
-if __name__ == "__main__":
-    mySQL_u = sys.argv[1]
-    mySQL_p = sys.argv[2]
-    db_name = sys.argv[3]
-
-    url = {'drivername': 'mysql+mysqldb', 'host': 'localhost',
-           'username': mySQL_u, 'password': mySQL_p, 'database': db_name}
-
-    engine = create_engine(URL(**url), pool_pre_ping=True)
-    Base.metadata.create_all(engine)
-
-    session = Session(bind=engine)
-
-    newState = State(name="California")
-    newState.cities.append(City(name="San Francisco"))
-
-    session.add(newState)
+if __name__ == '__main__':
+    args = sys.argv
+    if len(args) != 4:
+        print("Usage: {} username password database_name".format(args[0]))
+        exit(1)
+    username = args[1]
+    password = args[2]
+    data = args[3]
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
+                           .format(username, password, data))
+    # create custom session object class from database engine
+    Session = sessionmaker(bind=engine)
+    # create instance of new custom session class
+    session = Session()
+    california = State(name="California")
+    california.cities = [City(name="San Francisco")]
+    session.add(california)
     session.commit()
+    session.close()
